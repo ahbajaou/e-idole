@@ -1,291 +1,346 @@
 
-import React, { useState } from 'react';
-import { 
-  Image, 
-  Users, 
-  Award, 
-  Globe, 
-  MessageCircle,
-  Mail, 
-  Lock, 
-  User, 
-  ArrowRight 
+import React, { useEffect, useState } from 'react';
+import {
+  MessageCircle, Award, Globe, Users,
+  Mail,
+  Lock,
+  User,
+  ArrowRight
 } from 'lucide-react';
+import { FaInstagram, FaTwitter, FaLinkedinIn, FaTiktok } from 'react-icons/fa';
 
-import { useNavigate } from "react-router-dom";
+import img1 from '../assets/img1.png'
+import img2 from '../assets/img2.jpg'
+import img3 from '../assets/img3.jpg'
+import img4 from '../assets/img4.jpg'
+import img5 from '../assets/img5.jpg'
+import img6 from '../assets/img6.jpg'
+import img7 from '../assets/img7.jpg'
 
-// import ChatInterface from './components/ChatBox.jsx'
-// import React, { useState } from 'react';
-// import { 
-//   Mail, 
-//   Lock, 
-//   User, 
-//   ArrowRight 
-// } from 'lucide-react';
+import { motion } from 'framer-motion';
+// import React from 'react';
+// import { Mail, Lock, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const AuthComponent = () => {
-  const [isLogin, setIsLogin] = useState(true);
-    const Navigation = useNavigate();
-  const renderForm = () => {
-    return isLogin ? renderLoginForm() : renderRegisterForm();
+const LoginComponent = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Uncomment the following line when ready to implement navigation
+    navigate('/chat');
   };
 
-  const renderLoginForm = () => (
-    <form className="space-y-6">
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Mail className="text-gray-400" size={20} />
-        </div>
-        <input 
-          type="email" 
-          placeholder="Email Address" 
-          className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E80015]/50 transition duration-300"
-        />
-      </div>
-      
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Lock className="text-gray-400" size={20} />
-        </div>
-        <input 
-          type="password" 
-          placeholder="Password" 
-          className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E80015]/50 transition duration-300"
-        />
-      </div>
-      
-      <div className="flex justify-between items-center">
-        <a 
-          href="#" 
-          className="text-sm text-[#E80015] hover:underline transition"
-        >
-          Forgot Password?
-        </a>
-      </div>
-      
-      <button 
-        type="submit" 
-        onClick={(e) => Navigation('/chat')}
-        className="w-full bg-gradient-to-r from-[#E80015] to-red-700 text-white py-3 rounded-lg hover:opacity-90 transition duration-300 flex items-center justify-center space-x-2"
-      >
-        <span>Login</span>
-        <ArrowRight size={20} />
-      </button>
-    </form>
-  );
-
-  const renderRegisterForm = () => (
-    <form className="space-y-6">
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <User className="text-gray-400" size={20} />
-        </div>
-        <input 
-          type="text" 
-          placeholder="Full Name" 
-          className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E80015]/50 transition duration-300"
-        />
-      </div>
-      
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Mail className="text-gray-400" size={20} />
-        </div>
-        <input 
-          type="email" 
-          placeholder="Email Address" 
-          className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E80015]/50 transition duration-300"
-        />
-      </div>
-      
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Lock className="text-gray-400" size={20} />
-        </div>
-        <input 
-          type="password" 
-          placeholder="Password" 
-          className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E80015]/50 transition duration-300"
-        />
-      </div>
-      
-      <button 
-        type="submit" 
-        className="w-full bg-gradient-to-r from-[#E80015] to-red-700 text-white py-3 rounded-lg hover:opacity-90 transition duration-300 flex items-center justify-center space-x-2"
-      >
-        <span>Create Account</span>
-        <ArrowRight size={20} />
-      </button>
-    </form>
-  );
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-white p-4">
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl overflow-hidden">
         <div className="p-8">
-          <div className="flex mb-8">
-            <button 
-              onClick={() => setIsLogin(true)}
-              className={`w-1/2 py-3 text-center transition duration-300 ${
-                isLogin 
-                  ? 'text-[#E80015] border-b-2 border-[#E80015] font-semibold' 
-                  : 'text-gray-500 hover:text-[#E80015]'
-              }`}
-            >
-              Login
-            </button>
-            <button 
-              onClick={() => setIsLogin(false)}
-              className={`w-1/2 py-3 text-center transition duration-300 ${
-                !isLogin 
-                  ? 'text-[#E80015] border-b-2 border-[#E80015] font-semibold' 
-                  : 'text-gray-500 hover:text-[#E80015]'
-              }`}
-            >
-              Register
-            </button>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-[#E80015]">Login</h2>
+            <p className="text-gray-600 mt-2">Welcome back! Please enter your details</p>
           </div>
-          
-          {renderForm()}
-          
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
-              {isLogin 
-                ? "Don't have an account? " 
-                : "Already have an account? "}
-              <button 
-                onClick={() => setIsLogin(!isLogin)}
-                className="text-[#E80015] hover:underline"
+
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Mail className="text-gray-400" size={20} />
+              </div>
+              <input 
+                type="email" 
+                placeholder="Email Address" 
+                className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E80015]/50 transition duration-300"
+              />
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Lock className="text-gray-400" size={20} />
+              </div>
+              <input 
+                type="password" 
+                placeholder="Password" 
+                className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E80015]/50 transition duration-300"
+              />
+            </div>
+
+            <div className="flex justify-end items-center">
+              <a 
+                href="#" 
+                className="text-sm text-[#E80015] hover:underline transition"
               >
-                {isLogin ? "Register" : "Login"}
-              </button>
-            </p>
-          </div>
+                Forgot Password?
+              </a>
+            </div>
+
+            <button 
+              type="submit" 
+              className="w-full bg-gradient-to-r from-[#E80015] to-red-700 text-white py-3 rounded-lg hover:opacity-90 transition duration-300 flex items-center justify-center space-x-2"
+            >
+              <span>Login</span>
+              <ArrowRight size={20} />
+            </button>
+          </form>
         </div>
       </div>
     </div>
   );
 };
 
-// export default AuthComponent;
 
-const EIdolsWebsite = () => {
+
+export default function EIdolsPage() {
+  const [logoPositions, setLogoPositions] = useState([0, -30, -60, -90]); // Tighter spacing between logos
   const [activeSection, setActiveSection] = useState(true);
+  const images = [
+    img2,
+    img3,
+    img4,
+    img5,
+    img2,
+    img3,
+    img4,
+    img5
+  ];
+
+  const marqueeVariants = {
+    animate: {
+      x: [0, -1000],
+      transition: {
+        x: {
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 10,
+          ease: "linear",
+        },
+      },
+    },
+  };  // Infinite animation variants
+  const containerVariants = {
+    animate: {
+      transition: {
+        staggerChildren: 0.3,
+        delayChildren: 0.3,
+        staggerDirection: 1,
+        repeat: Infinity,
+      },
+    },
+  };
+
+  const itemVariants = {
+    initial: {
+      opacity: 0.6,
+      scale: 0.95
+    },
+    animate: {
+      opacity: [0.6, 1, 0.6],
+      scale: [0.95, 1.02, 0.95],
+      transition: {
+        duration: 3,
+        ease: "easeInOut",
+        repeat: Infinity,
+        repeatType: "reverse",
+      },
+    },
+  };
+  useEffect(() => {
+    const animationInterval = setInterval(() => {
+      setLogoPositions((prevPositions) =>
+        prevPositions.map((pos) => (pos >= 100 ? -90 : pos + 1)) // Reset the position to -90 for a smooth loop
+      );
+    }, 50); // Control animation speed
+
+    return () => clearInterval(animationInterval);
+  }, []);
 
   return (
-    <div className="bg-white text-black font-sans">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50  bg-white ">
-        <div className="container mx-auto flex justify-between items-center p-4">
-          <div className="text-2xl font-bold text-[#E80015]">E-IDOLS</div>
-          <div className="space-x-6">
-            <a onClick={(e) => setActiveSection(true)}  href="#home" className="hover:text-[#E80015] transition">Home</a>
-            <a onClick={(e) => setActiveSection(true)}  href="#about" className="hover:text-[#E80015] transition">About</a>
-            <a onClick={(e) => setActiveSection(true)}  href="#services" className="hover:text-[#E80015] transition">Services</a>
-            <button onClick={(e) => setActiveSection(false)} className="bg-[#E80015] text-white px-4 py-2 rounded-full hover:bg-black transition">
-              Login
-            </button>
+    <div className="font-sans flex items-center justify-center flex-col">
+      {/* Header */}
+      {/* Header with proper positioning */}
+      <header className="fixed flex justify-center items-center top-0 left-0 right-0 z-50 px-6 py-4 bg-white w-full shadow-md">
+        <div className='w-[94%] flex justify-between items-center '>
+          <div className="text-2xl font-bold">
+            <span className="text-red-600">E-IDOLS</span>
           </div>
+          <nav className="flex items-center space-x-6">
+            <a onClick={(e) => setActiveSection(true)} href="#home" className="hover:text-gray-600">Home</a>
+            <a onClick={(e) => setActiveSection(true)} href="#about" className="hover:text-gray-600">About</a>
+            <a onClick={(e) => setActiveSection(true)} href="#service" className="hover:text-gray-600">Service</a>
+            <button onClick={(e) => setActiveSection(false)} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Login</button>
+          </nav>
+
         </div>
-      </nav>
-
-      {/* Hero Section */}
-
+      </header>
       {activeSection ? (
         <>
-       <section 
-       id="home"
-       className="h-screen flex items-center justify-center text-center relative pt-16 bg-white px-4"
-     >
-       <div className="h-[90%] container mx-auto bg-gray-100 rounded-3xl  p-12 flex flex-col items-center justify-center">
-         <h1 className="text-6xl font-bold mb-4">
-           <span className="text-[#E80015]">E-IDOLS</span> TALENT AGENCY
-         </h1>
-         <p className="text-xl text-gray-700 mb-8">
-           Discovering and Elevating Digital Talents
-         </p>
-         <button onClick={(e) => setActiveSection(false)}  className="bg-[#E80015] text-white px-8 py-3 rounded-full hover:bg-black transition">
-           Explore Talents
-         </button>
-       </div>
-     </section>
 
-     <section 
-       id="about" 
-       className="py-16 bg-white px-4"
-     >
-       <div className="container mx-auto bg-white rounded-3xl  p-12">
-         <div className="grid md:grid-cols-2 gap-12 items-center">
-           <div>
-             <h2 className="text-4xl font-bold mb-6 text-[#E80015]">About E-Idols</h2>
-             <p className="text-gray-700 mb-4">
-               E-Idols is a pioneering talent management agency specializing in digital influencers, content creators, and emerging talents across various platforms.
-             </p>
-             <p className="text-gray-700">
-               Our mission is to identify, nurture, and propel unique talents to global recognition.
-             </p>
-           </div>
-           <div className="bg-gray-100 rounded-lg overflow-hidden">
-             <Image size={600} className="w-full h-80 object-cover" />
-           </div>
-         </div>
-       </div>
-     </section>
+          {/* Hero Section with padding-top to prevent content hiding behind fixed header */}
+          <section id="home" className="relative h-screen w-[90%] flex items-center justify-center mt-20">
+            <div className="absolute inset-0 bg-black flex items-center justify-center" style={{ borderRadius: '30px', overflow: 'hidden' }}>
+              <img
+                src={img1}
+                alt="Woman holding camera"
+                className="w-full h-full opacity-40 object-cover"
+              />
+            </div>
+            <div className="relative flex flex-col items-center justify-center text-center px-4">
+              <h1 className="text-6xl font-bold text-white mb-4">
+                <span className="text-red-600">E-IDOLS</span> TALENT AGENCY
+              </h1>
+              <p className="text-white text-lg mb-8">Discovering and Elevating Digital Talents</p>
+              <button
+                onClick={(e) => setActiveSection(false)}
+                className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition"
+              >
+                Explore Talents
+              </button>
+            </div>
+          </section>
 
 
-     <section 
-       id="services" 
-       className="py-16 bg-white px-4 h-screen"
-     >
-       <div className="h-[100%] container mx-auto bg-gray-100 rounded-3xl  p-12 flex items-center justify-center flex-col">
-         <h2 className="text-4xl font-bold text-center mb-12 text-[#E80015] ">
-           Our Services
-         </h2>
-         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 ">
-           {[
-             { icon: MessageCircle, title: 'Talent Management', desc: 'Comprehensive career support' },
-             { icon: Award, title: 'Brand Partnerships', desc: 'Strategic collaboration' },
-             { icon: Globe, title: 'Global Positioning', desc: 'International talent placement' },
-             { icon: Users, title: 'Content Strategy', desc: 'Innovative content development' }
-           ].map((service, index) => (
-             <div 
-               key={index} 
-               className="bg-gray-50 rounded-lg p-6 text-center shadow-md"
-             >
-               <div className="mb-4 flex justify-center">
-                 <service.icon size={48} className="text-[#E80015]" />
-               </div>
-               <h3 className="text-xl font-semibold mb-4 text-[#E80015]">{service.title}</h3>
-               <p className="text-gray-600">{service.desc}</p>
-             </div>
-           ))}
-         </div>
-       </div>
-     </section>
+          {/* About Section */}
+          <section id="about" className="w-[90%]">
+            <div className="flex flex-col md:flex-row gap-8 h-screen  items-center justify-center">
+              <div className="md:w-1/2 h-[100%] flex flex-col  justify-center">
+                <h2 className="text-3xl font-bold text-red-600 mb-6">About E-Idols</h2>
+                <p className="text-black mb-4">
+                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                </p>
+                <p className="text-black">
+                  It has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                </p>
+              </div>
+              <div className="md:w-1/2 bg-gray-200 h-[80%] flex items-center justify-center " style={{ borderRadius: '30px', overflow: 'hidden' }}>
+                <img
+                  src={img7}
+                  alt="About Image"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+            </div>
+          </section>
 
-     <footer className="bg-black text-white py-12">
-       <div className="container mx-auto px-4 text-center">
-         <div className="mb-8">
-           <h3 className="text-3xl font-bold text-[#E80015]">E-IDOLS</h3>
-           <p className="text-gray-400 mt-4">
-             Connecting Talents. Creating Legacies.
-           </p>
-         </div>
-         <div className="flex justify-center space-x-6 mb-8">
-           <a href="#" className="hover:text-[#E80015] transition">Instagram</a>
-           <a href="#" className="hover:text-[#E80015] transition">Twitter</a>
-           <a href="#" className="hover:text-[#E80015] transition">LinkedIn</a>
-         </div>
-         <p className="text-gray-500">&copy; 2024 E-Idols Talent Agency. All Rights Reserved.</p>
-       </div>
-     </footer>
-     </> 
+
+          {/* Red Line with Animated Logo */}
+          <div className="relative h-12 bg-red-600 w-full overflow-hidden flex">
+            {/* Container for the animations */}
+            <div className="flex whitespace-nowrap">
+              {/* First marquee animation */}
+              <motion.div
+                className="flex items-center"
+                variants={marqueeVariants}
+                animate="animate"
+              >
+                {/* Repeat the text multiple times to ensure continuous flow */}
+                {[...Array(10)].map((_, index) => (
+                  <span
+                    key={index}
+                    className="text-white text-4xl font-bold mx-8"
+                  >
+                    E-IDOLS
+                  </span>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Gallery Section */}
+          <section className="py-32 px-6 md:px-12 lg:px-24 bg-black w-full">
+            <motion.div
+              className="grid grid-cols-2 md:grid-cols-4 gap-6"
+              variants={containerVariants}
+              initial="animate"
+              animate="animate"
+            >
+              {images.map((image, i) => (
+                <motion.div
+                  key={i}
+                  className="bg-gray-800 h-72 md:h-96 lg:h-[400px] overflow-hidden rounded-lg"
+                  variants={itemVariants}
+                  initial="initial"
+                  animate="animate"
+                  custom={i}
+                >
+                  <img
+                    src={image}
+                    alt={`Gallery image ${i + 1}`}
+                    className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          </section>
+
+
+          {/* Services Section */}
+          <section id="service" className="py-16 px-6 md:px-12 lg:px-24">
+            <h2 className="text-3xl font-bold text-red-600 text-center mb-12">Our Service</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { icon: MessageCircle, title: 'Talent Management', desc: 'Comprehensive career support' },
+                { icon: Globe, title: 'Global Positioning', desc: 'International talent placement' },
+                { icon: Award, title: 'Brand Partnerships', desc: 'Strategic collaboration' },
+                { icon: Users, title: 'Content Strategy', desc: 'Innovative content development' }
+              ].map((service, i) => (
+                <div key={i} className="bg-gray-200 p-6 rounded-lg text-center shadow-md">
+                  <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center text-red-600">
+                    <service.icon className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-lg font-bold text-red-600 mb-2">{service.title}</h3>
+                  <p className="text-sm text-black">
+                    {service.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="bg-black py-12 px-6 md:px-12 lg:px-24 w-full text-white">
+            <div className="flex flex-col md:flex-row justify-between">
+              <div className="mb-8 md:mb-0">
+                <div className="text-2xl font-bold text-red-600 mb-4">E-IDOLS</div>
+
+                <div className="flex justify-center gap-6 mt-6">
+                  <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                    <FaInstagram className="w-6 h-6 text-white hover:text-red-600 transition-colors" />
+                  </a>
+                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                    <FaTwitter className="w-6 h-6 text-white hover:text-red-600 transition-colors" />
+                  </a>
+                  <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                    <FaLinkedinIn className="w-6 h-6 text-white hover:text-red-600 transition-colors" />
+                  </a>
+                  <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">
+                    <FaTiktok className="w-6 h-6 text-white hover:text-red-600 transition-colors" />
+                  </a>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                  <h4 className="font-bold mb-4">Company</h4>
+                  <p className="text-sm mb-2">About Us</p>
+                  <p className="text-sm mb-2">Our Team</p>
+                  <p className="text-sm">Careers</p>
+                </div>
+                <div>
+                  <h4 className="font-bold mb-4">Services</h4>
+                  <p className="text-sm mb-2">Talent Management</p>
+                  <p className="text-sm mb-2">Brand Partnerships</p>
+                  <p className="text-sm">Content Creation</p>
+                </div>
+                <div>
+                  <h4 className="font-bold mb-4">Contact</h4>
+                  <p className="text-sm mb-2">info@e-idols.com</p>
+                  <p className="text-sm mb-2">+1 (555) 123-4567</p>
+                  <p className="text-sm">Los Angeles, CA</p>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </>
       ) : (
-        <AuthComponent/>
+        <LoginComponent />
       )}
-
     </div>
   );
-};
-
-export default EIdolsWebsite;
+}
