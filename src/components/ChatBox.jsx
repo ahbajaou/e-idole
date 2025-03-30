@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ImprovedChatInterface = () => {
@@ -7,8 +7,25 @@ const ImprovedChatInterface = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [activeSection, setActiveSection] = useState('Chat');
   const [activeModule, setActiveModule] = useState(0);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Default to closed on mobile
   const [showWelcomeScreen, setShowWelcomeScreen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Set sidebar default state based on screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setSidebarOpen(!mobile); // Open on desktop, closed on mobile
+    };
+    
+    // Check on mount
+    checkMobile();
+    
+    // Add event listener to handle window resize
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Example prompts that users can click - updated to match your design
   const examplePrompts = [
@@ -39,6 +56,11 @@ const ImprovedChatInterface = () => {
       setMessages(prevMessages => [...prevMessages, newUserMessage, botResponse]);
       setInputMessage('');
       setShowWelcomeScreen(false);
+      
+      // Close sidebar on mobile when sending a message
+      if (isMobile) {
+        setSidebarOpen(false);
+      }
     }
   };
 
@@ -68,7 +90,7 @@ const ImprovedChatInterface = () => {
   const handleModuleSelect = (moduleIndex) => {
     setActiveModule(moduleIndex);
     // Close sidebar on small screens after selection
-    if (window.innerWidth < 768) {
+    if (isMobile) {
       setSidebarOpen(false);
     }
   };
@@ -89,6 +111,24 @@ const ImprovedChatInterface = () => {
     setMessages([newUserMessage, botResponse]);
     setInputMessage(''); // Clear the input field
     setShowWelcomeScreen(false); // Hide the welcome screen after a question is clicked
+    
+    // Close sidebar on mobile when clicking a prompt
+    if (isMobile) {
+      setSidebarOpen(false);
+    }
+  };
+
+  // Handle navigation to Quiz and close sidebar on mobile
+  const handleQuizNavigation = () => {
+    setActiveSection('Quiz');
+    
+    // Close sidebar on mobile
+    if (isMobile) {
+      setSidebarOpen(false);
+    }
+    
+    // Then navigate
+    navigate('/quiz');
   };
 
   return (
@@ -99,6 +139,7 @@ const ImprovedChatInterface = () => {
           <button
             className="md:hidden mr-2 p-2"
             onClick={toggleSidebar}
+            aria-label={sidebarOpen ? "Close sidebar" : "Open sidebar"}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={sidebarOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
@@ -112,8 +153,24 @@ const ImprovedChatInterface = () => {
 
       {/* Main Content Area */}
       <div className="flex flex-1 w-full overflow-hidden">
+        {/* Mobile Overlay - only show when sidebar is open on mobile */}
+        {sidebarOpen && isMobile && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-10" 
+            onClick={toggleSidebar}
+            aria-label="Close sidebar"
+          ></div>
+        )}
+        
         {/* Sidebar - responsive */}
-        <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transform transition-transform duration-300 fixed md:relative z-10 md:z-0 top-0 left-0 pt-16 md:pt-0 w-64 bg-gray-100 border-r h-full overflow-auto`}>
+        <div 
+          className={`
+            fixed md:relative z-20 top-0 left-0 pt-16 md:pt-0 w-64 bg-gray-100 border-r h-full overflow-auto
+            transform transition-transform duration-300 ease-in-out
+            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
+            md:translate-x-0
+          `}
+        >
           <div className="p-4 space-y-3">
             <div className="bg-white p-3 rounded shadow-sm">
               <h3 className="font-semibold text-sm">Current Module</h3>
@@ -137,19 +194,19 @@ const ImprovedChatInterface = () => {
 
             <div className="space-y-1">
               <button
-                className={`w-full text-left p-2 text-sm rounded ${activeSection === 'Chat' ? 'bg-red-600 text-white' : 'hover:bg-gray-200'
-                  }`}
-                onClick={() => setActiveSection('Chat')}
+                className={`w-full text-left p-2 text-sm rounded ${activeSection === 'Chat' ? 'bg-red-600 text-white' : 'hover:bg-gray-200'}`}
+                onClick={() => {
+                  setActiveSection('Chat');
+                  if (isMobile) {
+                    setSidebarOpen(false);
+                  }
+                }}
               >
                 Chat
               </button>
               <button
-                className={`w-full text-left p-2 text-sm rounded ${activeSection === 'Quiz' ? 'bg-red-600 text-white' : 'hover:bg-gray-200'
-                  }`}
-                onClick={() => {
-                  setActiveSection('Quiz');
-                  navigate('/quiz');
-                }}
+                className={`w-full text-left p-2 text-sm rounded ${activeSection === 'Quiz' ? 'bg-red-600 text-white' : 'hover:bg-gray-200'}`}
+                onClick={handleQuizNavigation}
               >
                 Quiz
               </button>
@@ -157,8 +214,8 @@ const ImprovedChatInterface = () => {
           </div>
         </div>
 
-        {/* Main Content - with sidebar overlay for small screens */}
-        <div className={`flex-1 overflow-hidden transition-all duration-300 ${sidebarOpen ? 'md:ml-0' : 'ml-0'}`}>
+        {/* Main Content */}
+        <div className="flex-1 overflow-hidden transition-all duration-300">
           <div className="h-full flex flex-col">
             {/* Chat Messages Area */}
             <div className="flex-1 overflow-y-auto p-4">
@@ -167,7 +224,7 @@ const ImprovedChatInterface = () => {
                   {/* Welcome Text - positioned above the questions */}
                   <div className="text-center mt-16 mb-8">
                     <h2 className="text-xl text-gray-700">Hi there</h2>
-                    <h1 className="text-2xl font-bold mt-2">How i can Help you?</h1>
+                    <h1 className="text-2xl font-bold mt-2">How can I help you?</h1>
                   </div>
 
                   {/* Question Buttons */}
@@ -216,7 +273,7 @@ const ImprovedChatInterface = () => {
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
               />
               <button
-                className="bg-red-600 text-white hover:bg-red-600 px-4 py-2 rounded-lg"
+                className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-lg"
                 onClick={() => handleSendMessage()}
               >
                 Send

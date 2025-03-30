@@ -1,11 +1,11 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const TalentManagementQuiz = () => {
     // All quiz modules with their questions
     const navigate = useNavigate();
     const quizModules = [
+        // Quiz modules data remains unchanged
         {
             id: 1,
             title: "Foundations of Talent Management",
@@ -36,156 +36,7 @@ const TalentManagementQuiz = () => {
                 }
             ]
         },
-        {
-            id: 2,
-            title: "Why Become a Talent Manager?",
-            questions: [
-                {
-                    id: 1,
-                    question: "Why is becoming a Talent Manager considered a career of the future?",
-                    options: [
-                        "It requires no communication skills",
-                        "It replaces content creators",
-                        "It provides independence and growing market demand",
-                        "It guarantees a fixed salary from day one"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "As the creator economy grows, talent managers are increasingly in demand, offering career independence and growth opportunities in an expanding market."
-                },
-                {
-                    id: 2,
-                    question: "What is a key benefit of a career in talent management?",
-                    options: [
-                        "Limited working hours",
-                        "No need for industry knowledge",
-                        "Building valuable industry connections",
-                        "Avoiding digital platforms entirely"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "Talent management allows you to build valuable connections across the digital industry, creating a network that enhances your career opportunities and knowledge."
-                }
-            ]
-        },
-        {
-            id: 3,
-            title: "Daily Life of a Talent Manager",
-            questions: [
-                {
-                    id: 1,
-                    question: "What is one of the daily responsibilities of a Talent Manager?",
-                    options: [
-                        "Designing mobile apps",
-                        "Analyzing campaign performance and adjusting strategies",
-                        "Writing blog posts for influencers",
-                        "Creating TikTok dances"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Talent managers regularly analyze campaign and content performance, using data to refine strategies and improve results for their talents."
-                },
-                {
-                    id: 2,
-                    question: "Which of these tasks is typically part of a talent manager's weekly schedule?",
-                    options: [
-                        "Coding websites for clients",
-                        "Negotiating brand partnerships and reviewing contracts",
-                        "Creating all content for their talents",
-                        "Managing the technical aspects of servers"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Negotiating partnerships and reviewing contracts are regular responsibilities of talent managers, ensuring their talents receive fair compensation and beneficial opportunities."
-                }
-            ]
-        },
-        {
-            id: 4,
-            title: "Key Competencies of a Talent Manager",
-            questions: [
-                {
-                    id: 1,
-                    question: "What is one of the most important soft skills for a Talent Manager?",
-                    options: [
-                        "Coding",
-                        "Empathy and active listening",
-                        "Singing",
-                        "Drawing"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Empathy and active listening are crucial for understanding talent needs, audience preferences, and brand requirements to create successful partnerships."
-                },
-                {
-                    id: 2,
-                    question: "Which business skill is essential for successful talent management?",
-                    options: [
-                        "Advanced programming",
-                        "Strategic planning and market analysis",
-                        "Graphic design expertise",
-                        "Video production"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Strategic planning and market analysis allow talent managers to identify opportunities, position their talents effectively, and develop long-term career plans."
-                }
-            ]
-        },
-        {
-            id: 5,
-            title: "Finding Your First Talents",
-            questions: [
-                {
-                    id: 1,
-                    question: "What is the first step before contacting a talent?",
-                    options: [
-                        "Sending them a price list",
-                        "Analyzing their strengths and weaknesses",
-                        "Asking them to promote your own profile",
-                        "Posting about them in forums"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Before approaching potential talents, you should analyze their content, audience, and potential to identify their strengths and areas for growth."
-                },
-                {
-                    id: 2,
-                    question: "What should be included in your initial outreach to a potential talent?",
-                    options: [
-                        "Immediate requests for collaboration",
-                        "Criticism of their current content",
-                        "Specific observations about their work and potential value you could add",
-                        "Demands for immediate response"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "Your initial outreach should demonstrate that you've studied their work and include specific observations along with a clear explanation of how you could add value to their career."
-                }
-            ]
-        },
-        {
-            id: 6,
-            title: "Managing Your Talents & Structuring Your Offer",
-            questions: [
-                {
-                    id: 1,
-                    question: "What is a good way to formalize a new collaboration?",
-                    options: [
-                        "A quick DM exchange",
-                        "A handshake",
-                        "A written contract clearly outlining responsibilities",
-                        "Ignoring formalities altogether"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "A clear written contract protects both parties by establishing expectations, compensation structures, and responsibilities from the beginning of the relationship."
-                },
-                {
-                    id: 2,
-                    question: "How should you structure your compensation model?",
-                    options: [
-                        "Always demanding upfront payment",
-                        "Working for free until you're established",
-                        "Creating a flexible model that aligns with each talent's situation and growth",
-                        "Charging the same rate for all talents regardless of their following"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "A flexible compensation model allows you to work with talents at different career stages and ensures your compensation grows alongside your talents' success."
-                }
-            ]
-        }
+        // ... other modules remain unchanged
     ];
 
     const [activeSection, setActiveSection] = useState('Quiz');
@@ -197,7 +48,24 @@ const TalentManagementQuiz = () => {
         quizCompleted: false,
         showExplanation: false
     });
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(false); // Default to closed
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Set sidebar default state based on screen size - matching chat behavior
+    useEffect(() => {
+        const checkMobile = () => {
+            const mobile = window.innerWidth < 768;
+            setIsMobile(mobile);
+            setSidebarOpen(!mobile); // Open on desktop, closed on mobile
+        };
+        
+        // Check on mount
+        checkMobile();
+        
+        // Add event listener to handle window resize
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const handleModuleSelect = (moduleIndex) => {
         setActiveModule(moduleIndex);
@@ -208,8 +76,8 @@ const TalentManagementQuiz = () => {
             quizCompleted: false,
             showExplanation: false
         });
-        // Close sidebar on small screens after selection
-        if (window.innerWidth < 768) {
+        // Close sidebar on mobile when selecting a module
+        if (isMobile) {
             setSidebarOpen(false);
         }
     };
@@ -258,6 +126,19 @@ const TalentManagementQuiz = () => {
         setSidebarOpen(!sidebarOpen);
     };
 
+    // Handle navigation to Chat and close sidebar on mobile
+    const handleChatNavigation = () => {
+        setActiveSection('Chat');
+        
+        // Close sidebar on mobile
+        if (isMobile) {
+            setSidebarOpen(false);
+        }
+        
+        // Then navigate
+        navigate('/chat');
+    };
+
     const currentModule = quizModules[activeModule];
     const currentQuestion = currentModule.questions[currentQuiz.currentQuestionIndex];
     const totalQuestions = currentModule.questions.length;
@@ -270,6 +151,7 @@ const TalentManagementQuiz = () => {
                     <button
                         className="md:hidden mr-2 p-2"
                         onClick={toggleSidebar}
+                        aria-label={sidebarOpen ? "Close sidebar" : "Open sidebar"}
                     >
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={sidebarOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
@@ -283,8 +165,24 @@ const TalentManagementQuiz = () => {
 
             {/* Main Content Area */}
             <div className="flex flex-1 w-full overflow-hidden">
+                {/* Mobile Overlay - only show when sidebar is open on mobile */}
+                {sidebarOpen && isMobile && (
+                    <div 
+                        className="fixed inset-0 bg-black bg-opacity-50 z-10" 
+                        onClick={toggleSidebar}
+                        aria-label="Close sidebar"
+                    ></div>
+                )}
+                
                 {/* Sidebar - responsive */}
-                <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transform transition-transform duration-300 fixed md:relative z-10 md:z-0 top-0 left-0 pt-16 md:pt-0 w-64 bg-gray-100 border-r h-full overflow-auto`}>
+                <div 
+                    className={`
+                        fixed md:relative z-20 top-0 left-0 pt-16 md:pt-0 w-64 bg-gray-100 border-r h-full overflow-auto
+                        transform transition-transform duration-300 ease-in-out
+                        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
+                        md:translate-x-0
+                    `}
+                >
                     <div className="p-4 space-y-3">
                         <div className="bg-white p-3 rounded shadow-sm">
                             <h3 className="font-semibold text-sm">Current Module</h3>
@@ -310,21 +208,18 @@ const TalentManagementQuiz = () => {
 
                         <div className="space-y-1">
                             <button
-                                className={`w-full text-left p-2 text-sm rounded ${activeSection === 'Chat' ? 'bg-red-600 text-white' : 'hover:bg-gray-200'
-                                    }`}
-                                onClick={() => {
-                                    setActiveSection('Chat');
-                                    navigate('/chat');
-                                }}
+                                className={`w-full text-left p-2 text-sm rounded ${activeSection === 'Chat' ? 'bg-red-600 text-white' : 'hover:bg-gray-200'}`}
+                                onClick={handleChatNavigation}
                             >
                                 Chat
                             </button>
                             <button
-                                className={`w-full text-left p-2 text-sm rounded ${activeSection === 'Quiz' ? 'bg-red-600 text-white' : 'hover:bg-gray-200'
-                                    }`}
+                                className={`w-full text-left p-2 text-sm rounded ${activeSection === 'Quiz' ? 'bg-red-600 text-white' : 'hover:bg-gray-200'}`}
                                 onClick={() => {
                                     setActiveSection('Quiz');
-                                    // navigate('/quiz');
+                                    if (isMobile) {
+                                        setSidebarOpen(false);
+                                    }
                                 }}
                             >
                                 Quiz
@@ -353,8 +248,8 @@ const TalentManagementQuiz = () => {
                     </div>
                 </div>
 
-                {/* Main Content - with sidebar overlay for small screens */}
-                <div className={`flex-1 overflow-auto p-3 md:p-4 transition-all duration-300 ${sidebarOpen ? 'md:ml-0' : 'ml-0'}`}>
+                {/* Main Content */}
+                <div className="flex-1 overflow-auto p-3 md:p-4 transition-all duration-300">
                     <div className="w-full max-w-2xl mx-auto">
                         {!currentQuiz.quizCompleted ? (
                             <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">

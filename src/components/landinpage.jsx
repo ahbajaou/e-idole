@@ -5,8 +5,10 @@ import {
   Mail,
   Lock,
   User,
-  ArrowRight
+  ArrowRight , Menu, X
 } from 'lucide-react';
+// import { Menu, X } from 'lucide-react';
+
 import { FaInstagram, FaTwitter, FaLinkedinIn, FaTiktok } from 'react-icons/fa';
 
 import img1 from '../assets/img1.png'
@@ -86,6 +88,127 @@ const LoginComponent = () => {
   );
 };
 
+// import React, { useEffect, useState } from 'react';
+// import { Menu, X } from 'lucide-react';
+
+const ResponsiveNavbar = ({ setActiveSection }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest('.navbar-menu') && !event.target.closest('.menu-button')) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
+  // Close menu when window is resized above mobile breakpoint
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isMenuOpen]);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  return (
+    <header className="fixed flex flex-col justify-center items-center top-0 left-0 right-0 z-50 px-4 sm:px-6 py-4 bg-white w-full shadow-md">
+      <div className='w-full max-w-7xl flex justify-between items-center'>
+        <div className="text-xl sm:text-2xl font-bold">
+          <span className="text-red-600">E-IDOLS</span>
+        </div>
+        
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-6">
+          <a onClick={() => setActiveSection(true)} href="#home" className="hover:text-gray-600 transition-colors">Home</a>
+          <a onClick={() => setActiveSection(true)} href="#about" className="hover:text-gray-600 transition-colors">About</a>
+          <a onClick={() => setActiveSection(true)} href="#service" className="hover:text-gray-600 transition-colors">Service</a>
+          <button 
+            onClick={() => setActiveSection(false)} 
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
+          >
+            Login
+          </button>
+        </nav>
+        
+        {/* Mobile Menu Button */}
+        <button 
+          className="md:hidden flex items-center menu-button" 
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+      
+      {/* Mobile Navigation */}
+      <div 
+        className={`navbar-menu w-full absolute top-full left-0 right-0 bg-white shadow-md md:hidden transition-all duration-200 ${
+          isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`}
+      >
+        <div className="flex flex-col p-4 space-y-4">
+          <a 
+            onClick={() => {
+              setActiveSection(true);
+              setIsMenuOpen(false);
+            }} 
+            href="#home" 
+            className="hover:text-red-600 transition-colors py-2"
+          >
+            Home
+          </a>
+          <a 
+            onClick={() => {
+              setActiveSection(true);
+              setIsMenuOpen(false);
+            }} 
+            href="#about" 
+            className="hover:text-red-600 transition-colors py-2"
+          >
+            About
+          </a>
+          <a 
+            onClick={() => {
+              setActiveSection(true);
+              setIsMenuOpen(false);
+            }} 
+            href="#service" 
+            className="hover:text-red-600 transition-colors py-2"
+          >
+            Service
+          </a>
+          <button 
+            onClick={() => {
+              setActiveSection(false);
+              setIsMenuOpen(false);
+            }} 
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors w-full text-left"
+          >
+            Login
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+// export default ResponsiveNavbar;
 
 
 export default function EIdolsPage() {
@@ -156,7 +279,7 @@ export default function EIdolsPage() {
     <div className="font-sans flex items-center justify-center flex-col">
       {/* Header */}
       {/* Header with proper positioning */}
-      <header className="fixed flex justify-center items-center top-0 left-0 right-0 z-50 px-6 py-4 bg-white w-full shadow-md">
+      {/* <header className="fixed flex justify-center items-center top-0 left-0 right-0 z-50 px-6 py-4 bg-white w-full shadow-md">
         <div className='w-[94%] flex justify-between items-center '>
           <div className="text-2xl font-bold">
             <span className="text-red-600">E-IDOLS</span>
@@ -169,7 +292,8 @@ export default function EIdolsPage() {
           </nav>
 
         </div>
-      </header>
+      </header> */}
+        <ResponsiveNavbar setActiveSection={setActiveSection} />
       {activeSection ? (
         <>
 
