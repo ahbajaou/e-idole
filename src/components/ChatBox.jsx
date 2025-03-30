@@ -131,7 +131,7 @@ const ImprovedChatInterface = () => {
                 ></div>
               </div>
               <p className="text-xs text-gray-600 mt-1">
-                30% complete
+                1 of 2
               </p>
             </div>
 
