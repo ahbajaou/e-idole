@@ -20,168 +20,96 @@ const TalentManagementQuiz = () => {
                     ],
                     correctAnswer: 1,
                     explanation: "Talent Managers primarily negotiate opportunities and manage partnerships to support their talents' career growth and development."
-                },
-                {
-                    id: 2,
-                    question: "Which of the following best describes talent management?",
-                    options: [
-                        "A short-term strategy to increase social media followers",
-                        "A comprehensive approach to developing digital creators' careers",
-                        "A technical role focused on video editing",
-                        "A customer service position for online platforms"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Talent management is a comprehensive approach that involves strategic planning, relationship building, and career development for digital creators."
                 }
             ]
         },
         {
             id: 2,
-            title: "Talent Acquisition",
+            title: "Why Become a Talent Manager",
             questions: [
                 {
                     id: 1,
-                    question: "What is the first step in the talent acquisition process?",
+                    question: "Why is becoming a Talent Manager considered a career of the future?",
                     options: [
-                        "Immediately posting job openings",
-                        "Identifying talent needs and creating job descriptions",
-                        "Conducting interviews",
-                        "Making job offers"
+                        "It requires no communication skills",
+                        "It replaces content creators",
+                        "It provides independence and growing market demand",
+                        "It guarantees a fixed salary from day one"
                     ],
-                    correctAnswer: 1,
-                    explanation: "The first step in talent acquisition is identifying the organization's needs and creating detailed job descriptions that align with business objectives."
-                },
-                {
-                    id: 2,
-                    question: "Which factor is most important when evaluating potential talent?",
-                    options: [
-                        "Number of social media followers",
-                        "Alignment with company values and culture",
-                        "Previous salary expectations",
-                        "Age and experience level"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Cultural fit and alignment with company values are crucial for long-term success and retention."
+                    correctAnswer: 2,
+                    explanation: "Talent Management offers independence and has growing market demand as digital content creation continues to expand."
                 }
             ]
         },
         {
             id: 3,
-            title: "Performance Management",
+            title: "Daily Life of a Talent Manager",
             questions: [
                 {
                     id: 1,
-                    question: "What is the primary goal of performance management?",
+                    question: "What is one of the daily responsibilities of a Talent Manager?",
                     options: [
-                        "To criticize underperforming employees",
-                        "To improve employee performance and achieve organizational goals",
-                        "To reduce employee benefits",
-                        "To increase workload"
+                        "Designing mobile apps",
+                        "Analyzing campaign performance and adjusting strategies",
+                        "Writing blog posts for influencers",
+                        "Creating TikTok dances"
                     ],
                     correctAnswer: 1,
-                    explanation: "Performance management aims to improve employee performance and align individual goals with organizational objectives through continuous feedback and development."
-                },
-                {
-                    id: 2,
-                    question: "Which is the most effective approach to performance reviews?",
-                    options: [
-                        "Annual formal reviews only",
-                        "Continuous feedback and regular check-ins",
-                        "Monthly written reports",
-                        "Quarterly team meetings"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Continuous feedback and regular check-ins provide more timely and actionable insights for improvement."
+                    explanation: "Analyzing campaign performance and adjusting strategies is a crucial daily responsibility for Talent Managers to ensure optimal results."
                 }
             ]
         },
         {
             id: 4,
-            title: "Learning & Development",
+            title: "Key Competencies of a Talent Manager",
             questions: [
                 {
                     id: 1,
-                    question: "What is the main purpose of learning and development programs?",
+                    question: "What is one of the most important soft skills for a Talent Manager?",
                     options: [
-                        "To fill time in the workday",
-                        "To enhance employee skills and career growth",
-                        "To reduce employee benefits",
-                        "To increase company expenses"
+                        "Coding",
+                        "Empathy and active listening",
+                        "Singing",
+                        "Drawing"
                     ],
                     correctAnswer: 1,
-                    explanation: "Learning and development programs are designed to enhance employee skills, knowledge, and capabilities for better performance and career growth."
-                },
-                {
-                    id: 2,
-                    question: "Which approach is most effective for employee training?",
-                    options: [
-                        "One-size-fits-all classroom training",
-                        "Personalized learning paths with multiple formats",
-                        "Online-only courses",
-                        "Annual training workshops"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Personalized learning paths that combine multiple formats (online, in-person, mentoring) are most effective for different learning styles and needs."
+                    explanation: "Empathy and active listening are essential soft skills for Talent Managers to understand and support their talents effectively."
                 }
             ]
         },
         {
             id: 5,
-            title: "Compensation",
+            title: "Finding Your First Talents",
             questions: [
                 {
                     id: 1,
-                    question: "What is the primary consideration in compensation planning?",
+                    question: "What is the first step before contacting a talent?",
                     options: [
-                        "Minimizing company expenses",
-                        "Market competitiveness and internal equity",
-                        "Employee preferences only",
-                        "Government regulations only"
+                        "Sending them a price list",
+                        "Analyzing their strengths and weaknesses",
+                        "Asking them to promote your own profile",
+                        "Posting about them in forums"
                     ],
                     correctAnswer: 1,
-                    explanation: "Compensation planning should balance market competitiveness with internal equity to attract and retain talent while maintaining fairness."
-                },
-                {
-                    id: 2,
-                    question: "Which factor should NOT influence compensation decisions?",
-                    options: [
-                        "Market research and industry standards",
-                        "Employee performance and contributions",
-                        "Personal relationships with management",
-                        "Company budget and financial health"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "Personal relationships should never influence compensation decisions as this can lead to bias and unfair practices."
+                    explanation: "Analyzing a talent's strengths and weaknesses is crucial before making contact to understand how you can add value to their career."
                 }
             ]
         },
         {
             id: 6,
-            title: "Succession Planning",
+            title: "Managing Your Talents & Structuring Your Offer",
             questions: [
                 {
                     id: 1,
-                    question: "What is the main purpose of succession planning?",
+                    question: "What is a good way to formalize a new collaboration?",
                     options: [
-                        "To replace current employees",
-                        "To ensure business continuity and leadership development",
-                        "To reduce training costs",
-                        "To increase employee turnover"
+                        "A quick DM exchange",
+                        "A handshake",
+                        "A written contract clearly outlining responsibilities",
+                        "Ignoring formalities altogether"
                     ],
-                    correctAnswer: 1,
-                    explanation: "Succession planning ensures business continuity by developing future leaders and maintaining organizational knowledge."
-                },
-                {
-                    id: 2,
-                    question: "Which is a key element of effective succession planning?",
-                    options: [
-                        "Keeping plans secret from employees",
-                        "Identifying and developing high-potential employees",
-                        "Waiting until someone leaves to start planning",
-                        "Focusing only on senior positions"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Identifying and developing high-potential employees is crucial for building a strong leadership pipeline."
+                    correctAnswer: 2,
+                    explanation: "A written contract clearly outlining responsibilities is essential for protecting both parties and ensuring clear expectations."
                 }
             ]
         }
